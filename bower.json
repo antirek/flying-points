@@ -1,0 +1,19 @@
+{
+  "name": "flying-points",
+  "version": "0.0.1",
+  "homepage": "https://github.com/antirek/flying-points",
+  "authors": [
+    "sergey <serge.dmitriev@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
