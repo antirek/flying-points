@@ -20,8 +20,8 @@
 <script>
 
     var Stage = function (container) {
-        var width = '300'; //window.innerWidth;
-        var height = '300'; //window.innerHeight;
+        var width = window.innerWidth;
+        var height = window.innerHeight;
 
         var stage = new Konva.Stage({
             container: container,
@@ -33,41 +33,56 @@
         stage.add(layer);
 
         var add = function (x, y, vx, vy, color) {
-            var hexagon = new Konva.Circle({
+            var q = {};
+
+            q.hexagon = new Konva.Circle({
                 x: x,
                 y: y,                
                 radius: 10,
                 fill: color
             });
 
-            layer.add(hexagon);
+            layer.add(q.hexagon);
             
-            var anim = new Konva.Animation(function (frame) {
-                var x = hexagon.x();
-                var y = hexagon.y();
+            q.anim = new Konva.Animation(function (frame) {
+                var x = q.hexagon.x();
+                var y = q.hexagon.y();
                 if (x > width || x < 0) {
                     vx = -vx
                 }
                 if (y > height || y < 0) {
                     vy = -vy
                 }
-                hexagon.x(x + vx);
-                hexagon.y(y + vy);
+                q.hexagon.setX(x + vx);
+                q.hexagon.setY(y + vy);
             }, layer);
             
-            anim.start();
+            q.anim.start();
+
+            return q;
         };
 
+        var remove = function (obj) {
+            layer.remove(obj.hexagon);
+        }
+
         return {
-            add: add
+            add: add,
+            remove: remove
         };
     };
     
     var stage = new Stage('container');
 
-    stage.add(50, 50, 5, -5, 'red');
+    var q1 = stage.add(50, 50, 5, -5, 'red');
     stage.add(50, 50, 10, -10, 'green');
     stage.add(250, 250, 10, -10, 'blue');
+
+    setTimeout(function () {
+        q1.anim.stop();
+        q1.hexagon.remove();
+        //stage.remove(q1);
+    }, 10000);
 
 </script>
 </body>
