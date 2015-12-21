@@ -5,6 +5,7 @@
   "authors": [
     "sergey <serge.dmitriev@gmail.com>"
   ],
+  "main": "flying-points.js",
   "description": "",
   "main": "",
   "moduleType": [],
