@@ -65,8 +65,14 @@
             return point;
         };
 
+        var remove = function (point) {
+            point.anim.stop();
+            point.hexagon.remove();
+        }
+
         return {
-            add: add
+            add: add,
+            remove: remove
         };
     };
 
@@ -80,8 +86,7 @@
     var point3 = field.add(new Point(250, 250, 20, -10, 'blue'));
     
     setTimeout(function () {
-        point1.anim.stop();
-        point1.hexagon.remove();        
+        field.remove(point1);
     }, 15000);
 
 </script>
