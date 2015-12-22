@@ -4,23 +4,29 @@ var Point = function (x, y, vx, vy, color) {
 
     point.hexagon = new Konva.Circle({
         x: x,
-        y: y,                
+        y: y,
         radius: 10,
         fill: color
     });
 
-    point.initAnim = function (layer, width, height) {            
+    point.initAnim = function (layer, width, height) {
         point.anim = new Konva.Animation(function (frame) {
             var x = point.hexagon.x();
             var y = point.hexagon.y();
-            if (x > width || x < 0) {
-                vx = -vx
+            if (x > width) {
+                vx = -Math.abs(vx + getRandomInt(-1, 1));
             }
-            if (y > height || y < 0) {
-                vy = -vy
+            if (y > height) {
+                vy = -Math.abs(vy + getRandomInt(-1, 1));
             }
-            point.hexagon.setX(x + vx);
-            point.hexagon.setY(y + vy);
+            if (x < 0) {
+                vx = Math.abs(vx + getRandomInt(-1, 1));
+            }
+            if (y < 0) {
+                vy = Math.abs(vy + getRandomInt(-1, 1));
+            }
+            point.hexagon.x(x + vx);
+            point.hexagon.y(y + vy);
         }, layer);
     };
 
@@ -35,7 +41,7 @@ var Field = function (container, width, height) {
     });
 
     var layer = new Konva.Layer();
-    stage.add(layer);        
+    stage.add(layer);
 
     var add = function (point) {
         layer.add(point.hexagon);
@@ -47,7 +53,7 @@ var Field = function (container, width, height) {
     var remove = function (point) {
         point.anim.stop();
         point.hexagon.remove();
-    }
+    };
 
     return {
         add: add,
